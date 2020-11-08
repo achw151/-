@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>排序</title>
+		<link rel="stylesheet" type="text/css" href="css/new_file.css"/>
+	<script>var a=[];</script>
+	</head>
+	
+	<body>
+		<form>
+			<input type="text" id="arr" />
+			<button type="button" id="btn" onclick="add()">添加</button>
+		</form>
+		<div class="bod">
+		</div>
+		
+	</body>
+	<script>
+		var body1=document.getElementsByClassName('bod')[0];
+		var nodes=body1.querySelectorAll('div');
+		var count=0;
+		function add(){
+			a=document.querySelector('#arr').value.split(' ');
+			console.log(document.querySelector('#arr').value);
+			for(let i=0;i<a.length;i++){
+				var node = document.createElement('div');
+				node.setAttribute("class","no");
+				node.setAttribute("style","height:"+Number(a[i])*8+"px;");
+				node.innerHTML='<span class="p">'+Number(a[i])+'</span>';
+				body1.appendChild(node);
+			}
+			nodes=body1.querySelectorAll('div');
+			console.log(nodes[0].innerText);
+			
+				var f=sortb();
+				console.log(f);
+				console.log(nodes);
+				for(let i=0;i<100;i++) 
+					setTimeout(function(){
+						f.next();
+					},i*200);
+			
+		};
+		function* sortc(){
+			for(let i=1;i<nodes.length;i++){
+				var classVal=nodes[i].getAttribute("style");
+				var hei=nodes[i].innerText;
+				var j;
+				for(j=i-1;j>=0;j--){
+					if(Number(nodes[j].innerText)>Number(hei)){
+						yield changeRed(nodes[j]);
+						yield changeOrange(nodes[j+1]);
+						yield copy(nodes[j+1],nodes[j]);
+					}else{
+						break;
+					}
+				}
+				yield changeRed(nodes[j+1]);
+				yield nodes[j+1].innerHTML='<span class="p">'+hei+'</span>';
+				yield nodes[j+1].setAttribute("style",classVal);
+			}
+			for(let i=0;i<nodes.length;i++)
+				changeOver(nodes[i]);
+		}
+		function* sortb(){
+			for(let i=0;i<nodes.length;i++){
+				for(let j=i+1;j<nodes.length;j++){
+					if(Number(nodes[i].innerText)>Number(nodes[j].innerText)){
+						yield changeRed(nodes[i]);
+						yield changeOrange(nodes[j]);
+						yield swap(nodes[i],nodes[j]);
+					}
+				}
+				yield changeOver(nodes[i]);
+			}
+		}
+		function* sorta(){
+			for(let i=0;i<nodes.length;i++){
+				for(let j=0;j<nodes.length-i-1;j++){
+					if(Number(nodes[j].innerText)>Number(nodes[j+1].innerText)){
+						yield changeRed(nodes[j]);
+						yield changeOrange(nodes[j+1]);
+						yield swap(nodes[j],nodes[j+1]);
+					}
+				}
+				yield changeOver(nodes[nodes.length-i-1]);
+			}
+		}
+		function copy(obj1,obj2){
+			obj1.setAttribute("style",obj2.getAttribute("style"));
+			obj1.innerHTML='<span class="p">'+obj2.innerText+'</span>';
+		}
+		function swap(obj1,obj2){
+			var classVal=obj1.getAttribute("style");
+			var hei=obj1.innerText;
+			obj1.setAttribute("style",obj2.getAttribute("style"));
+			obj2.setAttribute("style",classVal);
+			obj1.innerHTML='<span class="p">'+obj2.innerText+'</span>';
+			obj2.innerHTML='<span class="p">'+hei+'</span>';
+		}
+		function changeRed(obj){
+			
+			obj.setAttribute("class","no red");
+			setTimeout(function(){
+				obj.setAttribute("class","no");
+			},200);
+		}
+		function changeOrange(obj){
+			obj.setAttribute("class","no orange");
+			setTimeout(function(){
+				obj.setAttribute("class","no");
+			},200);
+		}
+		function changeOver(obj){
+			obj.setAttribute("class","no over");
+		}
+	</script>
+</html>

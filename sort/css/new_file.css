@@ -1,0 +1,65 @@
+
+*{
+	box-sizing: border-box;
+}
+*{
+	padding: 0px;
+	margin: 0px;
+}
+.bod{
+	display: flex;
+	align-items: flex-end;
+	height: 400px;
+	width: 700px;
+	background-color: rgb(59,77,82);
+	justify-content: center;
+	padding: 5px;
+}
+.no{
+	width: 60px;
+	background-color: rgb(163,209,288);
+	margin-left: 5px;
+	text-align: center;
+	color: white;
+}
+.no.red{
+	animation-name:cred;
+	animation-duration: 0.2s;
+	
+	-webkit-animation-name:cred;
+	-webkit-animation-duration: 0.2s;
+}
+.no.orange{
+	animation-name:corange;
+	animation-duration: 0.2s;
+	
+	-webkit-animation-name:corange;
+	-webkit-animation-duration: 0.2s;
+}
+.no.over{
+	animation-name:cover;
+	animation-duration: 0.2s;
+	animation-fill-mode:forwards;
+	
+	-webkit-animation-name:cover;
+	-webkit-animation-duration: 0.2s;
+	-webkit-animation-fill-mode:forwards;
+}
+@keyframes cred{
+	from {background-color: rgb(163,209,288);}
+	to {background-color: rgb(239,75,77);}
+}
+@keyframes corange{
+	from {background-color: rgb(163,209,288);}
+	to {background-color: rgb(245,148,2);}
+}
+@keyframes cover{
+	from {background-color: rgb(163,209,288);}
+	to {background-color: rgb(105,176,104);}
+}
+.p{
+	position: absolute;
+	display: block;
+	top:390px;
+	margin-left: 20px;
+}
